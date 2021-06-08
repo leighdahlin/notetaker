@@ -1,3 +1,4 @@
+
 let noteTitle;
 let noteText;
 let saveNoteBtn;
@@ -51,6 +52,7 @@ const deleteNote = (id) =>
   });
 
 const renderActiveNote = () => {
+  console.log("Active note")
   hide(saveNoteBtn);
 
   if (activeNote.id) {
@@ -107,7 +109,6 @@ const handleNewNoteView = (e) => {
 };
 
 const handleRenderSaveBtn = () => {
-  console.log("save btn clicked!")
   if (!noteTitle.value.trim() || !noteText.value.trim()) {
     hide(saveNoteBtn);
   } else {
