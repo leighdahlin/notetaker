@@ -8,13 +8,13 @@ const PORT = 3500;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static(__dirname + '/../../../public'));
+app.use(express.static(__dirname + '/Develop/public'));
 
-app.get('/notes', (req,res) => res.sendFile(path.join(__dirname, '../../notes.html')));
+app.get('/notes', (req,res) => res.sendFile(path.join(__dirname, '/Develop/public/notes.html')));
 
-app.get('/', (req,res) => res.sendFile(path.join(__dirname, '../../index.html')));
+app.get('/', (req,res) => res.sendFile(path.join(__dirname, '/Develop/public/index.html')));
 
-app.get('/api/notes', (req,res)=> res.sendFile(path.join(__dirname, '../../../db/db.json')));
+app.get('/api/notes', (req,res)=> res.sendFile(path.join(__dirname, '/Develop/db/db.json')));
 
 app.post('/api/notes',(req,res)=> {
     console.log("You are in the post request")
@@ -27,12 +27,14 @@ app.post('/api/notes',(req,res)=> {
       console.log(note)
       console.log(id);
       JSON.stringify(note)
-    fs.readFile('../../../db/db.json', 'utf-8',function (err, data){
+    fs.readFile('./Develop/db/db.json', 'utf-8',function (err, data){
         if(err) throw err
+        console.log(data)
+
         var arrayofObjects = JSON.parse(data)
         arrayofObjects.push(note)
 
-        fs.writeFile('../../../db/db.json',JSON.stringify(arrayofObjects),function(err) {
+        fs.writeFile('./Develop/db/db.json',JSON.stringify(arrayofObjects),function(err) {
             if(err) {console.log(err);
         }});
     })
@@ -43,14 +45,14 @@ app.post('/api/notes',(req,res)=> {
 
 app.delete('/api/notes/:id', (req,res)=> {
     const chosenId = req.params.id;
-    fs.readFile('../../../db/db.json','utf-8', function(err,data){
+    fs.readFile('./Develop/db/db.json','utf-8', function(err,data){
         if(err) throw err
         var arrayofObjects = JSON.parse(data)
         for(i=0;i<arrayofObjects.length;i++){
             if(arrayofObjects[i].id == chosenId) {
                 
                 arrayofObjects.splice(i,1)
-                fs.writeFile('../../../db/db.json',JSON.stringify(arrayofObjects),function(err) {
+                fs.writeFile('./Develop/db/db.json',JSON.stringify(arrayofObjects),function(err) {
                     if(err) {console.log(err);
                     
                 }});
