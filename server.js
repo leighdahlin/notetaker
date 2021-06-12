@@ -4,7 +4,7 @@ const fs = require('fs')
 const generateUniqueId = require('generate-unique-id');
 
 const app = express();
-const PORT = 3500;
+const PORT = process.env.PORT || 3500;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
